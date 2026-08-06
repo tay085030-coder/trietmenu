@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRIẾT GAMING NEON V8</title>
+
+<!-- Open Graph / Social meta (useful when page is hosted) -->
+<meta property="og:title" content="TRIẾT GAMING NEON V8">
+<meta property="og:description" content="TRIẾT GAMING — giao diện NEON V8. Chia sẻ trang này để bạn bè xem.">
+<meta property="og:type" content="website">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#050505;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.panel{
+width:360px;
+background:#111;
+border:2px solid #ff0000;
+border-radius:20px;
+padding:20px;
+box-shadow:0 0 25px red;
+}
+
+.logo{
+text-align:center;
+font-size:28px;
+font-weight:bold;
+color:#ff3b3b;
+text-shadow:0 0 15px red;
+margin-bottom:5px;
+}
+
+.version{
+text-align:center;
+color:#888;
+margin-bottom:20px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#191919;
+padding:15px;
+margin:12px 0;
+border-radius:15px;
+border:1px solid #ff3333;
+transition:.3s;
+}
+
+.item:hover{
+box-shadow:0 0 15px red;
+}
+
+.switch{
+position:relative;
+width:58px;
+height:30px;
+}
+
+.switch input{
+display:none;
+}
+
+.slider{
+position:absolute;
+cursor:pointer;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:#444;
+border-radius:30px;
+transition:.3s;
+}
+
+.slider:before{
+position:absolute;
+content:"";
+height:24px;
+width:24px;
+left:3px;
+bottom:3px;
+background:white;
+border-radius:50%;
+transition:.3s;
+}
+
+input:checked+.slider{
+background:#ff0000;
+}
+
+input:checked+.slider:before{
+transform:translateX(28px);
+}
+
+.status{
+text-align:center;
+margin-top:20px;
+font-size:18px;
+color:#00ff66;
+}
+
+.footer{
+margin-top:18px;
+text-align:center;
+color:#777;
+font-size:13px;
+}
+
+.circle{
+margin:20px auto;
+width:90px;
+height:90px;
+border:3px solid #ff0000;
+border-radius:50%;
+box-shadow:0 0 25px red;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+color:#ff0000;
+animation:pulse 1.8s infinite;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.08);
+box-shadow:0 0 35px #ff0000;
+}
+}
+
+.share-row{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:8px;
+margin-top:12px;
+}
+
+.btn-share{
+background:#0b84ff;color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px
+}
+
+.btn-secondary{background:#333;color:#ddd;border:1px solid #444}
+
+.small-note{font-size:12px;color:#999;margin-top:10px;text-align:center}
+
+</style>
+
+</head>
+<body>
+
+<div class="panel">
+
+<div class="logo">
+TRIẾT GAMING
+</div>
+
+<div class="version">
+NEON V8
+</div>
+
+<div class="circle">
+⭕
+</div>
+
+<div class="item">
+<span>🎯 AIM ĐẦU</span>
+
+<label class="switch">
+<input type="checkbox" id="aim">
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="item">
+<span>💊 FIX RUNG</span>
+
+<label class="switch">
+<input type="checkbox" id="fix">
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="item">
+<span>⚡ NHẸ TÂM</span>
+
+<label class="switch">
+<input type="checkbox" id="light">
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="item">
+<span>🎮 GIAO DIỆN NEON</span>
+
+<label class="switch">
+<input type="checkbox" id="theme" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="status" id="status">
+Sẵn sàng
+</div>
+
+<div class="share-row" id="shareRow">
+<button class="btn-share" id="btnNativeShare">Chia sẻ</button>
+<button class="btn-share btn-secondary" id="btnCopyBlob">Sao chép link GitHub</button>
+<button class="btn-share btn-secondary" id="btnCopyRaw">Sao chép link raw</button>
+<button class="btn-share btn-secondary" id="btnCopyPages">Sao chép GitHub Pages</button>
+<button class="btn-share btn-secondary" id="btnTwitter">Twitter</button>
+<button class="btn-share btn-secondary" id="btnWhatsApp">WhatsApp</button>
+</div>
+
+<div class="footer">
+TRIẾT GAMING © 2026
+</div>
+
+<div class="small-note">
+Lưu ý: để người khác mở trang này dưới dạng trang HTML (rendered), bật GitHub Pages cho repo hoặc dùng rawgithub/raw.githack; nếu bạn chỉ chia sẻ liên kết file trên GitHub (blob) người khác sẽ thấy mã nguồn HTML.
+</div>
+
+</div>
+
+<script>
+// --- existing settings logic ---
+const ids=["aim","fix","light","theme"];
+ids.forEach(id=>{
+const sw=document.getElementById(id);
+if(!sw) return;
+try{
+ sw.checked=localStorage.getItem(id)=="1";
+}catch(e){}
+
+sw.addEventListener("change",()=>{
+localStorage.setItem(id,sw.checked?"1":"0");
+document.getElementById("status").innerHTML=
+ sw.checked
+ ? id.toUpperCase()+" : ON ✅"
+ : id.toUpperCase()+" : OFF ❌";
+});
+});
+
+// --- share helpers ---
+const owner = 'tay085030-coder';
+const repo = '-triet-shop-triet';
+const filePath = 'trietmenu-3.html';
+const branch = 'main'; // change if default branch differs
+
+const blobUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${encodeURIComponent(filePath)}`;
+const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${encodeURIComponent(filePath)}`;
+const pagesUrl = `https://${owner}.github.io/${repo}/${encodeURIComponent(filePath)}`;
+
+// Buttons
+const btnNativeShare = document.getElementById('btnNativeShare');
+const btnCopyBlob = document.getElementById('btnCopyBlob');
+const btnCopyRaw = document.getElementById('btnCopyRaw');
+const btnCopyPages = document.getElementById('btnCopyPages');
+const btnTwitter = document.getElementById('btnTwitter');
+const btnWhatsApp = document.getElementById('btnWhatsApp');
+
+let currentTitle = document.title || 'TRIẾT GAMING';
+let currentText = currentTitle + ' — Giao diện NEON V8';
+
+async function tryClipboardWrite(text) {
+ try {
+   await navigator.clipboard.writeText(text);
+   alert('Đã sao chép vào clipboard:\n' + text);
+ } catch (e) {
+   prompt('Sao chép thủ công, nhấn Ctrl/Cmd+C:', text);
+ }
+}
+
+btnNativeShare.addEventListener('click', async ()=>{
+ const shareData = { title: currentTitle, text: currentText, url: pagesUrl };
+ if (navigator.share) {
+   try {
+     await navigator.share(shareData);
+   } catch(e) {
+     console.log('Share cancelled or failed', e);
+   }
+   return;
+ }
+ // fallback: copy blob link and open twitter/whatsapp
+ await tryClipboardWrite(blobUrl);
+ window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(currentText + ' ' + blobUrl)}`,'_blank');
+});
+
+btnCopyBlob.addEventListener('click', ()=> tryClipboardWrite(blobUrl));
+btnCopyRaw.addEventListener('click', ()=> tryClipboardWrite(rawUrl));
+btnCopyPages.addEventListener('click', ()=> tryClipboardWrite(pagesUrl));
+
+btnTwitter.addEventListener('click', ()=>{
+ const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(currentText + ' ' + pagesUrl)}`;
+ window.open(url,'_blank');
+});
+
+btnWhatsApp.addEventListener('click', ()=>{
+ const url = `https://wa.me/?text=${encodeURIComponent(currentText + ' ' + pagesUrl)}`;
+ window.open(url,'_blank');
+});
+
+// Make the page show usable link text somewhere if needed (console)
+console.log('Blob URL:', blobUrl);
+console.log('Raw URL:', rawUrl);
+console.log('Pages URL (if enabled):', pagesUrl);
+</script>
+
+</body>
+</html>
