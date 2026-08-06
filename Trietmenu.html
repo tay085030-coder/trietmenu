@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>TRIẾT GAMING NEON V8</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+background:
+radial-gradient(circle at top,#450000,#090909 55%,#000);
+
+height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+overflow:hidden;
+
+}
+
+.menu{
+
+width:360px;
+
+background:rgba(15,15,15,.95);
+
+border:2px solid #ff0000;
+
+border-radius:25px;
+
+padding:25px;
+
+box-shadow:
+
+0 0 15px red,
+
+0 0 40px red,
+
+inset 0 0 15px rgba(255,0,0,.3);
+
+backdrop-filter:blur(15px);
+
+animation:fade .5s;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+transform:scale(.9);
+
+}
+
+to{
+
+opacity:1;
+transform:scale(1);
+
+}
+
+}
+
+.logo{
+
+text-align:center;
+
+font-size:28px;
+
+font-weight:bold;
+
+color:#ff2a2a;
+
+text-shadow:
+
+0 0 10px red,
+
+0 0 25px red,
+
+0 0 40px red;
+
+margin-bottom:25px;
+
+}
+
+.info{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:20px;
+
+color:#ddd;
+
+font-size:14px;
+
+}
+
+.card{
+
+background:#111;
+
+border:1px solid #ff2020;
+
+border-radius:15px;
+
+padding:15px;
+
+margin-top:15px;
+
+box-shadow:0 0 10px rgba(255,0,0,.4);
+
+}
+
+.row{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin:14px 0;
+
+color:white;
+
+}
+
+.switch{
+
+position:relative;
+
+width:58px;
+
+height:30px;
+
+}
+
+.switch input{
+
+display:none;
+
+}
+
+.slider{
+
+position:absolute;
+
+cursor:pointer;
+
+top:0;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+background:#333;
+
+border-radius:30px;
+
+transition:.3s;
+
+}
+
+.slider:before{
+
+content:"";
+
+position:absolute;
+
+width:24px;
+
+height:24px;
+
+left:3px;
+
+top:3px;
+
+background:white;
+
+border-radius:50%;
+
+transition:.3s;
+
+}
+
+input:checked+.slider{
+
+background:red;
+
+box-shadow:0 0 15px red;
+
+}
+
+input:checked+.slider:before{
+
+transform:translateX(28px);
+
+}
+
+.footer{
+
+margin-top:20px;
+
+text-align:center;
+
+color:#888;
+
+font-size:13px;
+
+}
+
+button{
+
+width:100%;
+
+margin-top:20px;
+
+padding:14px;
+
+border:none;
+
+border-radius:15px;
+
+background:red;
+
+color:white;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+box-shadow:0 0 15px red;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.04);
+
+box-shadow:0 0 30px red;
+
+}
+
+.crosshair{
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%,-50%);
+
+font-size:20px;
+
+font-weight:bold;
+
+color:red;
+
+text-shadow:0 0 12px red;
+
+pointer-events:none;
+
+}
+
+.circle{
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:130px;
+
+height:130px;
+
+border:2px solid red;
+
+border-radius:50%;
+
+box-shadow:0 0 20px red;
+
+pointer-events:none;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="crosshair">+</div>
+
+<div class="circle"></div>
+
+<div class="menu">
+
+<div class="logo">
+
+TRIẾT GAMING
+
+<br>
+
+<span style="font-size:16px;color:white;">
+NEON V8
+</span>
+
+</div>
+
+<div class="info">
+
+<span>📱 iPhone</span>
+
+<span>🔋 100%</span>
+
+</div>
+
+<div class="card">
+
+<div class="row">
+
+<span>🎯 Hiện dấu tâm</span>
+
+<label class="switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="row">
+
+<span>⭕ Hiện vòng tròn</span>
+
+<label class="switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="row">
+
+<span>🌙 Dark Mode</span>
+
+<label class="switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="row">
+
+<span>💾 Lưu cài đặt</span>
+
+<label class="switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+</div>
+
+<button>ẨN / HIỆN MENU</button>
+
+<div class="footer">
+
+TRIẾT GAMING • NEON UI 2026
+
+</div>
+
+</div>
+
+</body>
+</html>
