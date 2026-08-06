@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TRIẾT GAMING NEON V8</title>
 
+<!-- Open Graph / Social meta (useful when page is hosted) -->
+<meta property="og:title" content="TRIẾT GAMING NEON V8">
+<meta property="og:description" content="TRIẾT GAMING — giao diện NEON V8. Chia sẻ trang này để bạn bè xem.">
+<meta property="og:type" content="website">
+
 <style>
 *{
 margin:0;
@@ -139,6 +144,23 @@ transform:scale(1.08);
 box-shadow:0 0 35px #ff0000;
 }
 }
+
+.share-row{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:8px;
+margin-top:12px;
+}
+
+.btn-share{
+background:#0b84ff;color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px
+}
+
+.btn-secondary{background:#333;color:#ddd;border:1px solid #444}
+
+.small-note{font-size:12px;color:#999;margin-top:10px;text-align:center}
+
 </style>
 
 </head>
@@ -202,35 +224,107 @@ NEON V8
 Sẵn sàng
 </div>
 
+<div class="share-row" id="shareRow">
+<button class="btn-share" id="btnNativeShare">Chia sẻ</button>
+<button class="btn-share btn-secondary" id="btnCopyBlob">Sao chép link GitHub</button>
+<button class="btn-share btn-secondary" id="btnCopyRaw">Sao chép link raw</button>
+<button class="btn-share btn-secondary" id="btnCopyPages">Sao chép GitHub Pages</button>
+<button class="btn-share btn-secondary" id="btnTwitter">Twitter</button>
+<button class="btn-share btn-secondary" id="btnWhatsApp">WhatsApp</button>
+</div>
+
 <div class="footer">
 TRIẾT GAMING © 2026
+</div>
+
+<div class="small-note">
+Lưu ý: để người khác mở trang này dưới dạng trang HTML (rendered), bật GitHub Pages cho repo hoặc dùng raw.githubusercontent.com; nếu bạn chỉ chia sẻ liên kết file trên GitHub (blob) người khác sẽ thấy mã nguồn HTML.
 </div>
 
 </div>
 
 <script>
-
+// --- existing settings logic ---
 const ids=["aim","fix","light","theme"];
-
 ids.forEach(id=>{
-
 const sw=document.getElementById(id);
-
-sw.checked=localStorage.getItem(id)=="1";
+if(!sw) return;
+try{
+ sw.checked=localStorage.getItem(id)=="1";
+}catch(e){}
 
 sw.addEventListener("change",()=>{
-
 localStorage.setItem(id,sw.checked?"1":"0");
-
 document.getElementById("status").innerHTML=
-sw.checked
-? id.toUpperCase()+" : ON ✅"
-: id.toUpperCase()+" : OFF ❌";
-
+ sw.checked
+ ? id.toUpperCase()+" : ON ✅"
+ : id.toUpperCase()+" : OFF ❌";
+});
 });
 
+// --- share helpers ---
+const owner = 'tay085030-coder';
+const repo = '-triet-shop-triet';
+const filePath = 'trietmenu 3.html';
+const branch = 'main'; // change if default branch differs
+
+const blobUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${encodeURIComponent(filePath)}`;
+const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${encodeURIComponent(filePath)}`;
+const pagesUrl = `https://${owner}.github.io/${repo}/${encodeURIComponent(filePath)}`;
+
+// Buttons
+const btnNativeShare = document.getElementById('btnNativeShare');
+const btnCopyBlob = document.getElementById('btnCopyBlob');
+const btnCopyRaw = document.getElementById('btnCopyRaw');
+const btnCopyPages = document.getElementById('btnCopyPages');
+const btnTwitter = document.getElementById('btnTwitter');
+const btnWhatsApp = document.getElementById('btnWhatsApp');
+
+let currentTitle = document.title || 'TRIẾT GAMING';
+let currentText = currentTitle + ' — Giao diện NEON V8';
+
+async function tryClipboardWrite(text) {
+ try {
+   await navigator.clipboard.writeText(text);
+   alert('Đã sao chép vào clipboard:\n' + text);
+ } catch (e) {
+   prompt('Sao chép thủ công, nhấn Ctrl/Cmd+C:', text);
+ }
+}
+
+btnNativeShare.addEventListener('click', async ()=>{
+ const shareData = { title: currentTitle, text: currentText, url: pagesUrl };
+ if (navigator.share) {
+   try {
+     await navigator.share(shareData);
+   } catch(e) {
+     console.log('Share cancelled or failed', e);
+   }
+   return;
+ }
+ // fallback: copy blob link and open twitter/whatsapp
+ await tryClipboardWrite(blobUrl);
+ window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(currentText + ' ' + blobUrl)}`,'_blank');
 });
 
+btnCopyBlob.addEventListener('click', ()=> tryClipboardWrite(blobUrl));
+btnCopyRaw.addEventListener('click', ()=> tryClipboardWrite(rawUrl));
+btnCopyPages.addEventListener('click', ()=> tryClipboardWrite(pagesUrl));
+
+btnTwitter.addEventListener('click', ()=>{
+ const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(currentText + ' ' + pagesUrl)}`;
+ window.open(url,'_blank');
+});
+
+btnWhatsApp.addEventListener('click', ()=>{
+ const url = `https://wa.me/?text=${encodeURIComponent(currentText + ' ' + pagesUrl)}`;
+ window.open(url,'_blank');
+});
+
+// Make the page show usable link text somewhere if needed (console)
+console.log('Blob URL:', blobUrl);
+console.log('Raw URL:', rawUrl);
+console.log('Pages URL (if enabled):', pagesUrl);
 </script>
 
 </body>
