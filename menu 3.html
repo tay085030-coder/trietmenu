@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>TRIẾT VIP GAMING OB54</title>
+
+<style>
+
+body{
+margin:0;
+background:#050505;
+font-family:Arial;
+color:white;
+}
+
+.container{
+max-width:430px;
+margin:auto;
+padding:15px;
+}
+
+.logo{
+text-align:center;
+font-size:28px;
+font-weight:900;
+color:#ffd700;
+text-shadow:0 0 20px red;
+}
+
+
+.card{
+margin-top:15px;
+background:#111;
+border-radius:18px;
+padding:15px;
+border:1px solid red;
+box-shadow:0 0 15px red;
+}
+
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#1b1b1b;
+margin-top:10px;
+padding:12px;
+border-radius:12px;
+}
+
+
+.switch{
+
+width:45px;
+height:25px;
+background:#555;
+border-radius:20px;
+position:relative;
+
+}
+
+
+.switch span{
+
+position:absolute;
+width:21px;
+height:21px;
+background:white;
+border-radius:50%;
+top:2px;
+left:2px;
+transition:.3s;
+
+}
+
+
+.active{
+
+background:#00cc55;
+
+}
+
+
+.active span{
+
+left:22px;
+
+}
+
+
+button{
+
+width:100%;
+padding:14px;
+margin-top:10px;
+border:0;
+border-radius:12px;
+background:linear-gradient(90deg,#ff0000,#ff9900);
+color:white;
+font-weight:bold;
+
+}
+
+
+.status{
+
+text-align:center;
+color:#00ff66;
+margin-top:20px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="logo">
+⚡ TRIẾT VIP GAMING OB54 ⚡
+</div>
+
+
+<div class="card">
+
+
+<h3>🎮 GAMING CONTROL</h3>
+
+
+<div class="item">
+Tối ưu thiết bị
+
+<div class="switch active" onclick="toggle(this,'optimize')">
+<span></span>
+</div>
+
+</div>
+
+
+<div class="item">
+Giảm tải nền
+
+<div class="switch active" onclick="toggle(this,'background')">
+<span></span>
+</div>
+
+</div>
+
+
+<div class="item">
+Kiểm tra FPS
+
+<div class="switch" onclick="toggle(this,'fps')">
+<span></span>
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="card">
+
+<h3>🎯 TRAINING PROFILE</h3>
+
+
+<div class="item">
+Smooth Touch
+
+<div class="switch active" onclick="toggle(this,'touch')">
+<span></span>
+</div>
+
+</div>
+
+
+
+<div class="item">
+Stable Control
+
+<div class="switch active" onclick="toggle(this,'control')">
+<span></span>
+</div>
+
+</div>
+
+
+<div class="item">
+Reaction Test
+
+<div class="switch" onclick="toggle(this,'reaction')">
+<span></span>
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="card">
+
+<h3>📱 DEVICE</h3>
+
+
+<div class="item">
+Pin
+
+<span id="battery">
+--
+</span>
+
+</div>
+
+
+<div class="item">
+
+Trạng thái
+
+<span style="color:#00ff66">
+ONLINE
+</span>
+
+</div>
+
+
+</div>
+
+
+
+<div class="card">
+
+<h3>💾 PROFILE</h3>
+
+
+<button onclick="saveData()">
+LƯU CẤU HÌNH
+</button>
+
+
+<button onclick="shareData()">
+CHIA SẺ PROFILE
+</button>
+
+
+<button onclick="resetData()">
+RESET
+</button>
+
+
+</div>
+
+
+
+<div class="status">
+
+✅ VIP SYSTEM READY
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+let settings={};
+
+
+function toggle(el,name){
+
+
+el.classList.toggle("active");
+
+
+settings[name]=el.classList.contains("active");
+
+
+localStorage.setItem(
+"TRIET_OB54",
+JSON.stringify(settings)
+);
+
+
+}
+
+
+
+function saveData(){
+
+alert("Đã lưu profile thành công");
+
+}
+
+
+
+function shareData(){
+
+
+let data=
+btoa(
+JSON.stringify(
+settings
+)
+);
+
+
+navigator.clipboard.writeText(data);
+
+
+alert(
+"Đã copy mã chia sẻ profile"
+);
+
+
+}
+
+
+
+function resetData(){
+
+localStorage.clear();
+
+location.reload();
+
+}
+
+
+
+let old=
+localStorage.getItem("TRIET_OB54");
+
+
+if(old){
+
+settings=JSON.parse(old);
+
+}
+
+
+
+if(navigator.getBattery){
+
+navigator.getBattery().then(b=>{
+
+battery.innerHTML=
+Math.round(b.level*100)+"%";
+
+});
+
+}
+
+
+</script>
+
+
+</body>
+</html>
