@@ -1,0 +1,317 @@
+<html lang="vi">
+	
+	<head>
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		
+		<title>NEON AIM CONTROL</title>
+		
+		<link rel="manifest" href="manifest.json">
+		
+		<style>
+			body {
+				margin: 0;
+				height: 100vh;
+				background: #050505;
+				color: white;
+				font-family: Arial;
+				overflow: hidden;
+			}
+			
+			
+			.menu {
+				
+				position: fixed;
+				top: 20px;
+				left: 20px;
+				
+				width: 270px;
+				
+				padding: 20px;
+				
+				border-radius: 20px;
+				
+				background: #090909;
+				
+				border: 2px solid #00ffff;
+				
+				box-shadow:
+					0 0 25px #00ffff;
+				
+			}
+			
+			
+			h1 {
+				
+				text-align: center;
+				
+				font-size: 22px;
+				
+				color: #00ffff;
+				
+			}
+			
+			
+			
+			button {
+				
+				width: 100%;
+				
+				padding: 13px;
+				
+				margin-top: 12px;
+				
+				border-radius: 15px;
+				
+				background: #111;
+				
+				color: white;
+				
+				border: 1px solid #ff00ff;
+				
+			}
+			
+			
+			
+			#msg {
+				
+				text-align: center;
+				
+				margin-top: 15px;
+				
+				color: #00ff99;
+				
+			}
+			
+			
+			
+			/* AIM */
+			
+			#aim {
+				
+				position: absolute;
+				
+				left: 50%;
+				top: 50%;
+				
+				transform:
+					translate(-50%, -50%);
+				
+				display: none;
+				
+				touch-action: none;
+				
+			}
+			
+			
+			.circle {
+				
+				width: 150px;
+				height: 150px;
+				
+				border-radius: 50%;
+				
+				border: 3px solid cyan;
+				
+				box-shadow:
+					0 0 25px cyan;
+				
+				display: flex;
+				
+				align-items: center;
+				
+				justify-content: center;
+				
+			}
+			
+			
+			
+			.dot {
+				
+				width: 15px;
+				
+				height: 15px;
+				
+				border-radius: 50%;
+				
+				background: red;
+				
+				box-shadow:
+					0 0 20px red;
+				
+			}
+		</style>
+		
+	</head>
+	
+	
+	<body>
+		
+		
+		<div class="menu">
+			
+			<h1>
+				⚡ NEON AIM ⚡
+			</h1>
+			
+			
+			<button onclick="toggleAim()">
+				⏻ BẬT / TẮT AIM
+			</button>
+			
+			
+			<button onclick="toggleLight()">
+				❄️ AIM NHẸ MÁY
+			</button>
+			
+			
+			<button onclick="changeSize()">
+				◉ ĐỔI KÍCH THƯỚC
+			</button>
+			
+			
+			<div id="msg">
+				Chưa kích hoạt
+			</div>
+			
+			
+		</div>
+		
+		
+		
+		<div id="aim">
+			
+			<div class="circle">
+				
+				<div class="dot"></div>
+				
+			</div>
+			
+		</div>
+		
+		
+		
+		<script>
+			let active = false;
+			
+			let light = false;
+			
+			let size = 150;
+			
+			
+			function notice(t) {
+				
+				document.getElementById("msg")
+					.innerHTML = t;
+				
+			}
+			
+			
+			
+			function toggleAim() {
+				
+				active = !active;
+				
+				
+				document.getElementById("aim")
+					.style.display =
+					active ? "block" : "none";
+				
+				
+				notice(
+					active ?
+					"✅ AIM ĐÃ BẬT THÀNH CÔNG" :
+					"❌ AIM ĐÃ TẮT"
+				);
+				
+				
+			}
+			
+			
+			
+			function toggleLight() {
+				
+				light = !light;
+				
+				
+				notice(
+					light ?
+					"❄️ CHẾ ĐỘ NHẸ MÁY BẬT" :
+					"❄️ CHẾ ĐỘ NHẸ MÁY TẮT"
+				);
+				
+			}
+			
+			
+			
+			function changeSize() {
+				
+				size += 30;
+				
+				if (size > 270)
+					size = 60;
+				
+				
+				let c = document.querySelector(".circle");
+				
+				c.style.width = size + "px";
+				
+				c.style.height = size + "px";
+				
+			}
+			
+			
+			
+			// kéo thả cảm ứng
+			
+			let aim = document.getElementById("aim");
+			
+			let drag = false;
+			
+			let x, y;
+			
+			
+			aim.addEventListener(
+				"pointerdown"
+				, e => {
+					
+					drag = true;
+					
+					x = e.clientX - aim.offsetLeft;
+					
+					y = e.clientY - aim.offsetTop;
+					
+				});
+			
+			
+			document.addEventListener(
+				"pointermove"
+				, e => {
+					
+					if (!drag) return;
+					
+					
+					aim.style.left =
+						e.clientX - x + "px";
+					
+					
+					aim.style.top =
+						e.clientY - y + "px";
+					
+					
+					aim.style.transform = "translate(0,0)";
+					
+				});
+			
+			
+			document.addEventListener(
+				"pointerup"
+				, () => drag = false
+			);
+		</script>
+		
+		
+	</body>
+	
+</html>
