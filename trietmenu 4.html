@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TRIẾT GAMING NEON V8</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+
+margin:0;
+background:
+radial-gradient(circle,#330000,#050505);
+
+color:white;
+
+}
+
+
+.container{
+
+max-width:500px;
+margin:auto;
+padding:20px;
+
+}
+
+
+.logo{
+
+text-align:center;
+font-size:30px;
+font-weight:bold;
+color:#ff0000;
+
+text-shadow:
+0 0 10px red,
+0 0 30px red;
+
+}
+
+
+.card{
+
+background:#111;
+
+border:1px solid red;
+
+border-radius:20px;
+
+padding:18px;
+
+margin-top:15px;
+
+box-shadow:
+0 0 20px rgba(255,0,0,.5);
+
+}
+
+
+.item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 0;
+
+border-bottom:1px solid #333;
+
+}
+
+
+
+.switch{
+
+width:55px;
+height:30px;
+
+background:#333;
+
+border-radius:30px;
+
+position:relative;
+
+cursor:pointer;
+
+}
+
+
+
+.switch span{
+
+width:25px;
+height:25px;
+
+background:white;
+
+border-radius:50%;
+
+position:absolute;
+
+top:2.5px;
+left:3px;
+
+transition:.3s;
+
+}
+
+
+.switch.active{
+
+background:red;
+
+box-shadow:
+0 0 15px red;
+
+}
+
+
+.switch.active span{
+
+left:27px;
+
+}
+
+
+
+button{
+
+width:100%;
+
+padding:14px;
+
+margin-top:10px;
+
+border:none;
+
+border-radius:15px;
+
+background:red;
+
+color:white;
+
+font-size:16px;
+
+box-shadow:
+0 0 20px red;
+
+}
+
+
+.status{
+
+text-align:center;
+
+margin-top:20px;
+
+color:#00ff88;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="logo">
+🔥 TRIẾT GAMING 🔥
+</div>
+
+
+<p style="text-align:center">
+WEB GAMING CONTROL 2026
+</p>
+
+
+
+<div class="card">
+
+
+<div class="item">
+🎯 AIM ĐẦU
+<div class="switch" data-key="aimDau">
+<span></span>
+</div>
+</div>
+
+
+<div class="item">
+🎯 AIM CỔ
+<div class="switch" data-key="aimCo">
+<span></span>
+</div>
+</div>
+
+
+<div class="item">
+⚡ AIM NHẸ TÂM
+<div class="switch" data-key="aimNhe">
+<span></span>
+</div>
+</div>
+
+
+<div class="item">
+🔒 AIMLOCK
+<div class="switch" data-key="aimLock">
+<span></span>
+</div>
+</div>
+
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+🎮 GAMING DASHBOARD
+</h3>
+
+
+<p id="device">
+📱 Thiết bị: Loading...
+</p>
+
+
+<p id="battery">
+🔋 Pin: Không hỗ trợ
+</p>
+
+
+<div class="status" id="status">
+
+⚡ Sẵn sàng trải nghiệm Gaming
+
+</div>
+
+
+<button onclick="savePreset()">
+💾 SAVE PRESET
+</button>
+
+
+<button onclick="shareMenu()">
+📤 CHIA SẺ MENU
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+let switches =
+document.querySelectorAll(".switch");
+
+
+
+switches.forEach(sw=>{
+
+
+let key =
+sw.dataset.key;
+
+
+
+if(localStorage.getItem(key)=="true"){
+
+sw.classList.add("active");
+
+}
+
+
+
+sw.onclick=function(){
+
+
+sw.classList.toggle("active");
+
+
+localStorage.setItem(
+
+key,
+
+sw.classList.contains("active")
+
+);
+
+
+document.getElementById("status").innerHTML =
+"✅ Đã cập nhật trạng thái";
+
+
+};
+
+
+});
+
+
+
+
+// Thiết bị
+
+document.getElementById("device").innerHTML =
+"📱 Thiết bị: "+
+navigator.userAgent;
+
+
+
+// Pin
+
+if(navigator.getBattery){
+
+navigator.getBattery()
+.then(b=>{
+
+document.getElementById("battery")
+.innerHTML =
+"🔋 Pin: "+
+Math.round(b.level*100)+"%";
+
+});
+
+}
+
+
+
+// Save
+
+function savePreset(){
+
+localStorage.setItem(
+"preset",
+JSON.stringify(
+{
+
+time:new Date()
+
+}
+)
+);
+
+
+alert(
+"✅ Đã lưu preset"
+);
+
+}
+
+
+
+// Share
+
+function shareMenu(){
+
+
+if(navigator.share){
+
+navigator.share({
+
+title:"TRIẾT GAMING",
+
+text:"TRIẾT GAMING NEON V8"
+
+});
+
+}
+
+else{
+
+alert(
+"Trình duyệt không hỗ trợ chia sẻ"
+);
+
+}
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
